@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/ruby-head-wasm-wasi@0.5.0/dist/browser.script.iife.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <table>
+      <thead>
+        <th>template</th>
+        <th>total placeholders</th>
+        <th>comentários</th>
+        <th>ações</th>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><input type="text" id="template-input"/></td>
+          <td><input type="number" id="placeholder-count-input"/></td>
+          <td><input type="text" id="annotation-input"/></td>
+          <td><button type="button" id="add-button">adicionar</button></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <br />
+    <label for="template-list">lista de templates formatada</label>
+    <br />
+    <textarea id="template-list"></textarea>
+
+    <br />
+    <br />
+    <label for="placeholder-list">lista de placeholders formatada</label>
+    <br />
+    <textarea id="placeholder-list"></textarea>
+
+    <br />
+    <br />
+
+    <script src="script.rb" type="text/ruby"></script>
+  </body>
+</html>
