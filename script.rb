@@ -77,11 +77,11 @@ items_string = JS.eval("return localStorage.getItem('@items')")
 
 if items_string != JS::Undefined
   JSON.parse(items_string.to_s).each do |item|
-    Items.push Item.new(item['template'], item['placeholder_count'], item['annotation'])
+    item_data = Item.new(item['template'], item['placeholder_count'], item['annotation'])
+    Items.push(item_data)
+    RenderItem.(item_data)
   end
 end
-
-Items.each { RenderItem.(_1) }
 
 add_button = Document.getElementById('add-button')
 add_button.addEventListener('click', ->(_) { AddItem.call })
