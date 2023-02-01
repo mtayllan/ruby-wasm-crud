@@ -1,7 +1,7 @@
 require 'js'
 require 'json'
 
-Item = Data.define(:template, :placeholder_count, :annotation)
+Item = Data.define(:template, :placeholder_count)
 Document = JS.global[:document]
 Items = []
 
@@ -35,9 +35,6 @@ RenderItem = lambda do |item|
   placeholder_count_el = Document.createElement('td')
   placeholder_count_el[:innerText] = item.placeholder_count
 
-  annotation_el = Document.createElement('td')
-  annotation_el[:innerText] = item.annotation
-
   delete_el = Document.createElement('td')
   delete_btn = Document.createElement('button')
   delete_btn[:innerText] = 'apagar'
@@ -46,7 +43,6 @@ RenderItem = lambda do |item|
 
   row_el.appendChild(template_el)
   row_el.appendChild(placeholder_count_el)
-  row_el.appendChild(annotation_el)
   row_el.appendChild(delete_el)
 
   body_el.appendChild(row_el)
@@ -55,17 +51,14 @@ end
 AddItem = lambda do
   template_input = Document.getElementById('template-input')
   placeholder_count_input = Document.getElementById('placeholder-count-input')
-  annotation_input = Document.getElementById('annotation-input')
 
   template = template_input[:value]
   placeholder_count = placeholder_count_input[:value]
-  annotation = annotation_input[:value]
 
-  item = Item.new(template:, placeholder_count:, annotation:)
+  item = Item.new(template:, placeholder_count:)
 
   template_input[:value] = ''
   placeholder_count_input[:value] = ''
-  annotation_input[:value] = ''
 
   Items.push(item)
   RenderItem.(item)
@@ -77,7 +70,7 @@ items_string = JS.eval("return localStorage.getItem('@items')")
 
 if items_string != JS::Undefined
   JSON.parse(items_string.to_s).each do |item|
-    item_data = Item.new(item['template'], item['placeholder_count'], item['annotation'])
+    item_data = Item.new(item['template'], item['placeholder_count'])
     Items.push(item_data)
     RenderItem.(item_data)
   end
