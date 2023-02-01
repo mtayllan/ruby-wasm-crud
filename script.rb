@@ -37,7 +37,7 @@ RenderItem = lambda do |item|
 
   delete_el = Document.createElement('td')
   delete_btn = Document.createElement('button')
-  delete_btn[:innerText] = 'apagar'
+  delete_btn[:innerText] = 'delete'
   delete_btn.addEventListener('click', ->(_) { DeleteItem.(item, row_el) })
   delete_el.appendChild(delete_btn)
 
