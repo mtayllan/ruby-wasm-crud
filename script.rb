@@ -76,7 +76,27 @@ if items_string != JS::Undefined
   end
 end
 
+UpdateOutputs.()
+
 add_button = Document.getElementById('add-button')
 add_button.addEventListener('click', ->(_) { AddItem.call })
 
-UpdateOutputs.()
+load_button = Document.getElementById('load-button')
+load_button.addEventListener('click', lambda do |_|
+  template_list_input = Document.getElementById('template-list-input')
+  placeholder_count_list_input = Document.getElementById('placeholder-count-list-input')
+
+  template_list = template_list_input[:value].to_s.split('||')
+  placeholder_count_list = placeholder_count_list_input[:value].to_s.split('||')
+
+  Items.clear
+  Document.getElementById('table-body')[:innerText] = ''
+
+  template_list.each_with_index do |template, index|
+    item_data = Item.new(template, placeholder_count_list[index])
+    Items.push(item_data)
+    RenderItem.(item_data)
+  end
+  UpdateStorage.()
+  UpdateOutputs.()
+end)
